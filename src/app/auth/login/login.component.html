@@ -1,0 +1,25 @@
+
+<div class="container" style="margin-top: 60px;">
+  <div class="panel panel-info">
+      <div class="panel-heading"><h1> Login </h1> </div>
+      <div class="panel-body">
+<form #userForm = "ngForm">
+  <div class="form-group">
+    <label for="username1">Username</label>
+    <input type="username" #username ="ngModel" name="username" [(ngModel)]='loginform.username' class="form-control" id="username1" aria-describedby="emailHelp" placeholder="Enter username" required>
+    <div *ngIf = "!username.valid && (username.touched)">
+      <div *ngIf="username.errors.required" class="alert alert-danger">Please enter username</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" #password ="ngModel" name="password" [(ngModel)]='loginform.password' class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+    <div *ngIf = "!password.valid  && (password.touched)">
+      <div *ngIf="password.errors.required" class="alert alert-danger">Please enter password</div>
+    </div>
+  </div>
+  <button type="button" [disabled]="!userForm.valid" (click) ="login()" class="btn btn-primary">Login</button>
+</form>
+</div>
+</div>
+<div>
