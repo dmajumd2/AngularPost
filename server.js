@@ -34,8 +34,41 @@ var postReg_schema = new Schema({
     zip: String
 });
 
+var posts_schema = new Schema({
+    title: String,
+    description: String
+});
+
 
 var user_posts_reg = mongoose.model('postreg_posts', postReg_schema);
+var posts = mongoose.model('posts', posts_schema);
+
+
+/////////////////createpost/////////////////////////
+app.post('/post', function(req, res){
+    console.log(req.body);
+    var userPost = new posts({
+        title: req.body.title,
+        description: req.body.description
+    });
+
+    userPost.save(function(err) {
+        if (!err){
+           console.log("Document saved");
+           res.send({
+                postSaved: true,
+                message: 'post saved'
+            });
+        }
+        else{
+            res.send({
+                postSaved:false,
+                message: 'post not saved'
+            })
+        } 
+    });
+    
+});
 
 //registration of the user 
 app.post('/registration', function(req, res){
@@ -65,8 +98,40 @@ app.post('/registration', function(req, res){
             })
         } 
     });
-
 });
+
+
+////////login///////////////////////////
+
+app.post('/authenticate', function(req, res){
+        console.log(req.body);
+        var token = jwt.sign({'uname': req.body.username}, 'debashish-secret-key', {
+            expiresIn: '1h'
+        });
+
+        var username =  req.body.username;
+        var password = req.body.password;
+
+        user_posts_reg.findOne({username: username, password: password}, function(err, user){
+            if(err){
+                return res.status(500).send();
+            }
+            if(!user){
+                return res.send({
+                    isRegistered: false,
+                    message: "Not Registered"
+                });
+            }
+            return res.send({
+                isRegistered: true,
+                message: "Registered",
+                data: user,
+                token: token
+            });
+        });
+});
+
+
 
 app.listen(3000, function(){
     console.log("Server running @ localhost:3000")

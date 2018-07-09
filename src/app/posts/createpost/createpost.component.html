@@ -18,7 +18,7 @@
         <div *ngIf="description.errors.required" class="alert alert-danger">Please enter description</div>
       </div>
     </div>
-    <button type="submit" [disabled]="!createForm.valid" class="btn btn-primary">Submit</button>
+    <button type="submit" (click)="createPost()" [disabled]="!createForm.valid" class="btn btn-primary">Submit</button>
 </form>
 </div>
 </div>

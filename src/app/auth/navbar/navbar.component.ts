@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  toggleLinks : Boolean = false;
+
+  constructor(private _authService: AuthService) { }
+
+
+  logout(){
+    this._authService.logout();
+  }
 
   ngOnInit() {
+    this._authService.$authObservable.subscribe((data: any)=>{
+      this.toggleLinks = data;
+    })
   }
 
 }

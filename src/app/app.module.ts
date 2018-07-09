@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
@@ -39,7 +40,7 @@ import { ViewpostComponent } from './posts/viewpost/viewpost.component';
       {path: "**", redirectTo:"home"}
     ])
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

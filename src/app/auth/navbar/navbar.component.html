@@ -13,12 +13,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a [routerLink]="['/home']">Home<span class="sr-only">(current)</span></a></li>
-        <li><a [routerLink]="['/registration']">Sign Up</a></li>
-        <li><a [routerLink]="['/login']">Login</a></li>
-        <li><a [routerLink]="['/createpost']">Create Post</a></li>
-        <li><a [routerLink]="['/listpost']">List Posts</a></li>
-        <li><a>Logout</a></li>
+        <li><a [routerLink]="['/home']" *ngIf = "toggleLinks">Home<span class="sr-only">(current)</span></a></li>
+        <li><a [routerLink]="['/registration']" *ngIf = "!toggleLinks">Sign Up</a></li>
+        <li><a [routerLink]="['/login']" *ngIf = "!toggleLinks">Login</a></li>
+        <li><a [routerLink]="['/createpost']" *ngIf = "toggleLinks">Create Post</a></li>
+        <li><a [routerLink]="['/listpost']" *ngIf = "toggleLinks">List Posts</a></li>
+        <li><a (click)="logout()" *ngIf = "toggleLinks">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
 
