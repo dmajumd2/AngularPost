@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { HomeComponent } from './auth/home/home.component';
 import { CreatepostComponent } from './posts/createpost/createpost.component';
 import { ListpostComponent } from './posts/listpost/listpost.component';
 import { ViewpostComponent } from './posts/viewpost/viewpost.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -32,15 +34,15 @@ import { ViewpostComponent } from './posts/viewpost/viewpost.component';
     RouterModule.forRoot([
       {path: "registration", component:RegistrationComponent},
       {path: "login", component:LoginComponent},
-      {path: "home", component:HomeComponent},
-      {path: "createpost", component: CreatepostComponent},
-      {path: "listpost", component: ListpostComponent},
-      {path: "viewpost", component: ViewpostComponent},
+      {path: "home", component:HomeComponent , canActivate:[AuthGuard]},
+      {path: "createpost", component: CreatepostComponent, canActivate:[AuthGuard]},
+      {path: "listpost", component: ListpostComponent, canActivate:[AuthGuard]},
+      {path: "viewpost", component: ViewpostComponent, canActivate:[AuthGuard]},
       {path: "", redirectTo:"registration", pathMatch:"full"},
       {path: "**", redirectTo:"home"}
     ])
   ],
-  providers: [CookieService],
+  providers: [AuthService, CookieService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
