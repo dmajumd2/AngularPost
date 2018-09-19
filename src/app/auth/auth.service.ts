@@ -30,7 +30,7 @@ export class AuthService {
         console.log(data);
         if(data.isRegistered){
         this._cookieService.set('token', data.token);
-        this.$authObservable.next(data.isRegistered); //emit the true value to all components to show that the user is logged in successfully
+        this.$authObservable.next(data.token); //emit the true value to all components to show that the user is logged in successfully
         this._router.navigate(['/home']);
         } else {
             alert('Invalid credentials!!!');

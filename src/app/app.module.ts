@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthinterceptorService } from './auth/authinterceptor.service';
 
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
@@ -31,18 +34,23 @@ import { AuthService } from './auth/auth.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    BootstrapModalModule,
     RouterModule.forRoot([
       {path: "registration", component:RegistrationComponent},
       {path: "login", component:LoginComponent},
       {path: "home", component:HomeComponent , canActivate:[AuthGuard]},
       {path: "createpost", component: CreatepostComponent, canActivate:[AuthGuard]},
       {path: "listpost", component: ListpostComponent, canActivate:[AuthGuard]},
-      {path: "viewpost", component: ViewpostComponent, canActivate:[AuthGuard]},
+      {path: "listpost/:pCode", component: ViewpostComponent, canActivate:[AuthGuard]},
       {path: "", redirectTo:"registration", pathMatch:"full"},
       {path: "**", redirectTo:"home"}
     ])
   ],
-  providers: [AuthService, CookieService, AuthGuard],
+  providers: [AuthService, CookieService, AuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthinterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

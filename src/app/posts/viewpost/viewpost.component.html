@@ -1,3 +1,25 @@
-<p>
-  viewpost works!
-</p>
+<div class="container">
+    
+        <div class="panel panel-primary">
+            <div class="panel-heading">Post Details</div>
+            <div class="panel-body">
+              <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Title</td><td>{{postDetails.title}}</td>
+                </tr>
+                <tr><td>Description</td><td>{{postDetails.description}}</td></tr>
+              </table>
+              <button class="btn btn-primary btn-sm" (click)="back()">Back to Posts</button>&nbsp;
+              <button class="btn btn-primary btn-sm" (click)="getComment()">Comments</button>&nbsp;
+              <button type="button" (click) = "likes()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+              &nbsp;<button class="btn btn-primary btn-sm">{{liked}}</button>
+              <div>
+                <table class="table">
+                  <tr *ngFor = "let co of comments">
+                    <td>{{co}}</td>                          
+                </table>
+              </div>
+
+              </div>
+        </div>
+</div>
